@@ -8,4 +8,4 @@ jobs:
       MY_VARIABLE: "Hello, World!"
     steps:
       - name: Use Environment Variable
-        run: echo "Message"
+        run: echo $MY_VARIABLE
