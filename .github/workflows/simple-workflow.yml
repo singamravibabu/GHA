@@ -1,4 +1,4 @@
-name: Simple Workflow
+name: Enhanced Workflow
 
 on:
   push:
@@ -10,7 +10,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout repository code
       - name: Checkout repository
         uses: actions/checkout@v3
+      # Step 2: Print a simple message
       - name: Print a message
         run: echo "Hello, this is my first GitHub Actions workflow!"
+      # Step 3: Print system information
+      - name: Print system info
+        run: uname -a
+      # Step 4: Use an environment variable
+      - name: Print a custom environment variable
+        env:
+          MY_CUSTOM_MESSAGE: "This is a message from an environment variable!'
+        run: echo $MY_CUSTOM_MESSAGE
+      # Step 5: Run multiple commands
+      - name: Run multiple commands
+        run: |
+          echo "Start of commands"
+          echo "The curent directory is:" pwd
+          echo "End of commands"
