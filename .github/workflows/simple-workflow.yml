@@ -28,5 +28,5 @@ jobs:
       - name: Run multiple commands
         run: |
           echo "Start of commands"
-          echo "The curent directory is:" + pwd
+          echo "The curent directory is: $pwd"
           echo "End of commands"
