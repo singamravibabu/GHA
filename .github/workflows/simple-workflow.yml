@@ -22,7 +22,7 @@ jobs:
       # Step 4: Use an environment variable
       - name: Print a custom environment variable
         env:
-          MY_CUSTOM_MESSAGE: "This is a message from an environment variable!'
+          MY_CUSTOM_MESSAGE: 'This is a message from an environment variable!'
         run: echo $MY_CUSTOM_MESSAGE
       # Step 5: Run multiple commands
       - name: Run multiple commands
