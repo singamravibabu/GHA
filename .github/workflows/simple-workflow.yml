@@ -1,4 +1,4 @@
-name: Python Script Workflow
+name: Python Test Workflow
 
 on:
   push:
@@ -6,24 +6,21 @@ on:
       - main
 
 jobs:
-  example-job:
+  test-job:
     runs-on: ubuntu-latest
 
     steps:
       # Step 1: Checkout repository code
       - name: Checkout repository
         uses: actions/checkout@v3
-      # Step 2: Set up Python 3
+      # Step 2: Set up Python
       - name: Set up Python 3
         uses: actions/setup-python@v4
         with:
           python-version: "3.x"
-      # Step 3: Run the Python script
-      - name: Run the Python script
-        run: python script.py
-      # Step 4: Save the output file as an artifact
-      - name: Upload output file
-        uses: actions/upload-artifact@v3
-        with:
-          name: python-output
-          path: output.txt
+      # Step 3: Install dependencies
+      - name: Install pytest
+        run: pip install pytest
+      # Step 4: Run the tests
+      - name: Run Python tests
+        run: pytest test_script.py
