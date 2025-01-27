@@ -1,4 +1,4 @@
-name: Python Test Workflow
+name: Matrix Test Workflow
 
 on:
   push:
@@ -8,16 +8,19 @@ on:
 jobs:
   test-job:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
 
     steps:
       # Step 1: Checkout repository code
       - name: Checkout repository
         uses: actions/checkout@v3
-      # Step 2: Set up Python
+      # Step 2: Set up Python (matrix-based)
       - name: Set up Python 3
         uses: actions/setup-python@v4
         with:
-          python-version: "3.x"
+          python-version: ${{ matrix.python-version }}
       # Step 3: Install dependencies
       - name: Install pytest
         run: pip install pytest
