@@ -1,4 +1,4 @@
-name: Enhanced Workflow
+name: Python Script Workflow
 
 on:
   push:
@@ -13,20 +13,17 @@ jobs:
       # Step 1: Checkout repository code
       - name: Checkout repository
         uses: actions/checkout@v3
-      # Step 2: Print a simple message
-      - name: Print a message
-        run: echo "Hello, this is my first GitHub Actions workflow!"
-      # Step 3: Print system information
-      - name: Print system info
-        run: uname -a
-      # Step 4: Use an environment variable
-      - name: Print a custom environment variable
-        env:
-          MY_CUSTOM_MESSAGE: 'This is a message from an environment variable!'
-        run: echo $MY_CUSTOM_MESSAGE
-      # Step 5: Run multiple commands
-      - name: Run multiple commands
-        run: |
-          echo "Start of commands"
-          echo "The curent directory is: $pwd"
-          echo "End of commands"
+      # Step 2: Set up Python 3
+      - name: Set up Python 3
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+      # Step 3: Run the Python script
+      - name: Run the Python script
+        run: python script.py
+      # Step 4: Save the output file as an artifact
+      - name: Upload output file
+        uses: actions/upload-artifact@v3
+        with:
+          name: python-output
+          python: output.txt
