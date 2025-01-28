@@ -1,4 +1,4 @@
-name: Matrix Test Workflow
+name: Test Coverage Workflow
 
 on:
   push:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.8", "3.9", "3.10"]
 
     steps:
       # Step 1: Checkout repository code
@@ -23,7 +23,17 @@ jobs:
           python-version: ${{ matrix.python-version }}
       # Step 3: Install dependencies
       - name: Install pytest
-        run: pip install pytest
-      # Step 4: Run the tests
-      - name: Run Python tests
-        run: pytest test_script.py
+        run: |
+          pip install pytest pytest-cov
+      # Step 4: Run the tests with coverage
+      - name: Run tests and generate coverage
+        run: |
+          pytest --cov=script --cov-report=term-missing
+      # Step 5: Upload coverage report as artifact
+      - name: Save coverage report
+        run: |
+          pytest --cov=scrpt --cov-report=html
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: htmlcov/
