@@ -1,4 +1,6 @@
 # script.py
-with open("output.txt", "w") as f:
-  f.write("Hello, this is the output from the Python script!")
-print("Python script executed successfully.")
+def add(a, b):
+  return a + b
+
+def subtract(a, b):
+  return a - b
