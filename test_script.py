@@ -1,8 +1,8 @@
 # test_script.py
+from script import add, subtract
 
-def test_example():
-  assert 1 + 1 == 2, "Math is broken!"
+def test_add():
+  assert add(2, 3) == 5
 
-def test_message():
-  message = "Hello, GitHub Actions!"
-  assert message == "Hello, GitHub Actions!", "Message does not match"
+def test_subtract():
+  assert subtract(5, 3) == 2
