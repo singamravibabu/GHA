@@ -1,4 +1,4 @@
-name: Test Coverage Workflow
+name: Lint and Test Workflow
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  test-job:
+  lint-and-test-job:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -17,25 +17,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       # Step 2: Set up Python (matrix-based)
-      - name: Set up Python 3
+      - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
       # Step 3: Install dependencies
       - name: Install pytest
         run: |
-          pip install pytest pytest-cov
-      # Step 4: Run the tests with coverage
-      - name: Run tests and generate coverage
-        run: |
-          pytest --cov=script --cov-report=term-missing
-      # Step 5: Upload coverage report as artifact
-      - name: Create coverage reprot
-        run: |
-          pytest --cov=script --cov-report=html
-      # Step 6: Upload coverage report and artifact
-      - name: Save coverage report
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage-report
-          path: htmlcov/
+          pip install pytest pytest-cov flake8
+      # Step 4: Run linter flake8
+      - name: Run flake8 linter
+        run: flake8 .
+      # Step 5: Run tests and generate coverage
+      - name: Run tests with coverage
+        run: pytest --cov=script --cov-report=term-missing
