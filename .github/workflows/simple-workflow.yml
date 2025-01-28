@@ -32,7 +32,7 @@ jobs:
       # Step 5: Upload coverage report as artifact
       - name: Save coverage report
         run: |
-          pytest --cov=scrpt --cov-report=html
+          pytest --cov=script --cov-report=html
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
