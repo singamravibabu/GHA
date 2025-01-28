@@ -30,9 +30,11 @@ jobs:
         run: |
           pytest --cov=script --cov-report=term-missing
       # Step 5: Upload coverage report as artifact
-      - name: Save coverage report
+      - name: Create coverage reprot
         run: |
           pytest --cov=script --cov-report=html
+      # Step 6: Upload coverage report and artifact
+      - name: Save coverage report
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
