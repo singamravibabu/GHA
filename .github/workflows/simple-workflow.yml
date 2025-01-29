@@ -1,4 +1,4 @@
-name: Lint and Test Workflow
+name: Format, Lint and Test Workflow
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  lint-and-test-job:
+  format-lint-test-job:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -24,10 +24,13 @@ jobs:
       # Step 3: Install dependencies
       - name: Install pytest
         run: |
-          pip install pytest pytest-cov flake8
-      # Step 4: Run linter flake8
+          pip install black pytest pytest-cov flake8
+      # Step 4: Run Black (check for formatting issues)
+      - name: Check code formatting with Black
+        run: black . --check
+      # Step 5: Run linter (flake8)
       - name: Run flake8 linter
         run: flake8 .
-      # Step 5: Run tests and generate coverage
+      # Step 6: Run tests and generate coverage
       - name: Run tests with coverage
         run: pytest --cov=script --cov-report=term-missing
