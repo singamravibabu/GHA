@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   format-lint-test-job:
@@ -21,20 +24,29 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      # Step 3: Install dependencies
+      # Step 3: Cache Depndencies
+      - name: Cache Python dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip   # Location of pip's cache
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      # Step 4: Install dependencies
       - name: Install pytest
         run: |
-          pip install black pytest pytest-cov flake8
-      # Step 4: Run Black (check for formatting issues)
+          pip install --upgrade pip
+          pip install -r requirements.txt
+      # Step 5: Run Black (check for formatting issues)
       - name: Check code formatting with Black
         run: black . --check
-      # Step 5: Run linter (flake8)
+      # Step 6: Run linter (flake8)
       - name: Run flake8 linter
         run: flake8 .
-      # Step 6: Run tests and generate coverage
+      # Step 7: Run tests and generate coverage
       - name: Run tests with coverage
         run: pytest --cov=script --cov-report=term-missing --junitxml=results.xml
-      # Step 7: Upload test logs and coverage reports as artifacts
+      # Step 8: Upload test logs and coverage reports as artifacts
       - name: Upload test logs and reports
         uses: actions/upload-artifact@v3
         with:
