@@ -48,7 +48,7 @@ jobs:
         run: pytest --cov=script --cov-report=term-missing --junitxml=results.xml
       # Step 8: Upload test logs and coverage reports as artifacts
       - name: Upload test logs and reports
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-results-and-coverage
           path: |
