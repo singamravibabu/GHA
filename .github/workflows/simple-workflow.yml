@@ -50,7 +50,7 @@ jobs:
       - name: Upload test logs and reports
         uses: actions/upload-artifact@v4
         with:
-          name: test-results-and-coverage
+          name: test-results-and-coverage2
           path: |
             results.xml
             .coverage
