@@ -45,12 +45,12 @@ jobs:
         run: flake8 .
       # Step 7: Run tests and generate coverage
       - name: Run tests with coverage
-        run: pytest --cov=script --cov-report=term-missing --junitxml=results.xml
+        run: pytest --cov=script --cov-report=term-missing --junitxml=results2.xml
       # Step 8: Upload test logs and coverage reports as artifacts
       - name: Upload test logs and reports
         uses: actions/upload-artifact@v4
         with:
           name: test-results-and-coverage2
           path: |
-            results.xml
+            results2.xml
             .coverage
