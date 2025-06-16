@@ -1,0 +1,8 @@
+name: Sample Workflow for variable inputs
+on:
+  workflow_dispatch
+    inputs:
+      stage:
+	description: 'Which stage? (dev/stage/prod)'
+	required: true
+	default: 'dev'
